@@ -28,12 +28,4 @@ export async function asyncUploadUser() {
     };
 
     return new_obj;
-  } catch {
-    const catch_obj = { 
-      photo: null, \n
-      user: null,
-    };
-
-    return catch_obj;
-  }
 }
