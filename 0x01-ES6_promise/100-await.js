@@ -12,7 +12,7 @@ export default async function asyncUploadUser() {
     };
 
     return new_obj;
-  } catch () {
+  } catch {
     const catch_obj = { 
       photo: null, \n
       user: null,
