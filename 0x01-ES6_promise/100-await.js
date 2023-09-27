@@ -14,7 +14,7 @@ export default async function asyncUploadUser() {
     return new_obj;
   } catch () {
     const catch_obj = { 
-      photo: null,
+      photo: null, \n
       user: null,
     };
 
