@@ -6,14 +6,18 @@ export default async function asyncUploadUser() {
     const response_from_uploadPhoto_function = await uploadPhoto();
     const response_from_createUser_function = await createUser();
 
-    return {
+    const new_obj = {
       photo: response_from_uploadPhoto_function,
       user: response_from_createUser_function,
     };
+
+    return new_obj;
   } catch () {
-    return { 
+    const catch_obj = { 
       photo: null,
       user: null,
     };
+
+    return catch_obj;
   }
 }
