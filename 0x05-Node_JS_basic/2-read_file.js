@@ -9,7 +9,7 @@
 // CSV file can contain empty lines (at the end) - and they are not a valid student!
 
 const fs = require('fs');
-const parse = require('cvs-parser');
+const { parse } = require('csv-parse');
 
 function countStudents(path) {
   let data;
@@ -20,11 +20,22 @@ function countStudents(path) {
   }
 
   const students = [];
-  parse(data, { delimiter: ',' })
-    .on(data, (row) => {
+  const cs = [];
+  const swe = [];
+  parse(data, { delimiter: ',', columns: true })
+    .on('data', (row) => {
       students.push(row);
+      if (row.field === 'CS') {
+        cs.push(row.firstname);
+      } else if (row.field === 'SWE') {
+        swe.push(row.firstname);
+      }
     })
     .on('end', () => {
       console.log(`Number of students: ${students.length}`);
+      console.log(`Number of students in CS: ${cs.length}. List: ${cs.join(', ')}`);
+      console.log(`Number of students in SWE: ${swe.length}. List: ${swe.join(', ')}`);
     });
 }
+
+module.exports = countStudents;
