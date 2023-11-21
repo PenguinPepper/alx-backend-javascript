@@ -43,25 +43,25 @@ const database = async function countStudents(path) {
 const greeting = 'Hello Holberton School!';
 
 const app = http.createServer(async (req, res) => {
-  res.setHeader('Content-Type', 'text-plain');
+  res.setHeader('Content-Type', 'text/plain');
   switch (req.url) {
     case '/':
-      res.writeHead(200);
+      res.statusCode = 200;
       res.end(greeting);
       break;
     case '/students':
       try {
         const answer = await database(filePath);
-        res.writeHead(200);
+        res.statusCode = 200;
         res.end(`This is the list of our students\n${answer}`);
       } catch (error) {
         console.log(error);
-        res.writeHead(500);
+        res.statusCode = 500;
         res.end('Mhhh and error occured');
       }
       break;
     default:
-      res.writeHead(200);
+      res.statusCode = 200;
       res.end(greeting);
   }
 });
