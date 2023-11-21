@@ -11,7 +11,7 @@ const database = async function countStudents(path) {
   try {
     data = await fs.readFile(path);
   } catch (err) {
-    throw new Error(`Cannot load the database at:${path}`);
+    throw new Error(`Cannot load the database`);
   }
 
   return new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ const app = http.createServer(async (req, res) => {
       } catch (error) {
         console.log(error);
         res.statusCode = 500;
-        res.end('Mhhh and error occured');
+        res.end('Mhhh an error occured');
       }
       break;
     default:
