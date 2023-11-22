@@ -10,7 +10,7 @@ function countStudents(path) {
   }
 
   const students = [];
-  const fields  = {};
+  const fields = {};
   parse(data, { delimiter: ',', columns: true })
     .on('data', (row) => {
       students.push(row);
@@ -22,7 +22,9 @@ function countStudents(path) {
     .on('end', () => {
       console.log(`Number of students: ${students.length}`);
       for (const field in fields) {
-      console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+        if (field) {
+          console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+        }
       }
     });
 }
