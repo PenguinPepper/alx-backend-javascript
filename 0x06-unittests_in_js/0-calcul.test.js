@@ -21,8 +21,14 @@ describe('Test rounding off', function() {
   });
 
   it('Round off two negative decimal numbers', function() {
-   answer = -3 + (-3);
-   func_ans = calculateNumber(-3.2, -2.7);
-   assert.deepStrictEqual(answer, func_ans);
+    answer = -3 + (-3);
+    func_ans = calculateNumber(-3.2, -2.7);
+    assert.deepStrictEqual(answer, func_ans);
+  });
+
+  it('Round off two whole numbers', function() {
+    answer = 2 + 6;
+    func_ans = calculateNumber(2, 6);
+    assert.deepStrictEqual(answer, func_ans);
   });
 })
