@@ -9,6 +9,12 @@ describe('Test 1-calculjs', function() {
       assert.deepStrictEqual(answer, func_ans);
     });
 
+    it('Round off of 1 number', function() {
+      answer = 'Error';
+      func_ans = calculateNumber('DIVIDE', 4.2, 0);
+      assert.deepStrictEqual(answer, func_ans);
+    });
+
     it('Round off two decimals', function() {
       answer = 2 - 4;
       func_ans = calculateNumber('SUBTRACT', 1.5, 3.7);
