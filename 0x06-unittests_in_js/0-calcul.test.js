@@ -8,7 +8,7 @@ describe('Test rounding off', function() {
     assert.deepStrictEqual(answer, func_ans);
   });
 
-  it('Round off of 1 number'. function() {
+  it('Round off of 1 number', function() {
     answer = Math.round(4.2) + 3;
     func_ans = calculateNumber(4.2, 3);
     assert.deepStrictEqual(answer, func_ans);
