@@ -44,13 +44,18 @@ const port = 1245;
 
 app.get('/', (request, response) => {
   response.set('Content-Type', 'text/plain');
-  response.send('Hello Holberton School!');
+  response.status(200).send('Hello Holberton School!');
 });
 
 app.get('/students', async (request, response) => {
-  const students = await countStudents(process.argv[2]);
-  response.set('Content-Type', 'text/plain');
-  response.send(`This is the list of our students\n${students}`);
+  try {
+    const students = await countStudents(process.argv[2]);
+    response.set('Content-Type', 'text/plain');
+    response.status(200).send(`This is the list of our students\n${students}`);
+  } catch (error) {
+    response.set('Content-Type', 'text/plain');
+    response.status(503).send('Únable to open database');
+  }
 });
 
 app.listen(port, () => {
