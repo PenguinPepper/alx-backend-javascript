@@ -56,8 +56,8 @@ const app = http.createServer(async (request, response) => {
         response.end(`This is the list of our students\n${students}`);
       } catch (error) {
         console.log(error);
-        response.statusCode = 500;
-        response.end('Lol, it didnt work');
+        response.statusCode = 404;
+        response.end('Cannot load the database');
       }
       break;
     default:
