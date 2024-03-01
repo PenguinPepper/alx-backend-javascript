@@ -50,9 +50,9 @@ app.get('/', (request, response) => {
 app.get('/students', async (request, response) => {
   const students = await countStudents(process.argv[2]);
   response.set('Content-Type', 'text/plain');
-   response.send(`This is the list of our students\n${students}`)
-})
+  response.send(`This is the list of our students\n${students}`);
+});
 
 app.listen(port, () => {
-  console.log(`Serve running on port: ${port}`)
-})
+  console.log(`Serve running on port: ${port}`);
+});
