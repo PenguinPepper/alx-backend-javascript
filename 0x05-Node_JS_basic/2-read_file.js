@@ -9,7 +9,7 @@ function countStudents(path) {
     throw new Error('Cannot load the database');
   }
 
-  const students = {};
+  const students = [];
   const fields = {};
 
   parse(data, { delimter: ',', columns: true })
@@ -18,7 +18,7 @@ function countStudents(path) {
       if (!fields[row.field]) {
         fields[row.field] = [];
       }
-      fields[row.field].push(row.student);
+      fields[row.field].push(row.firstname);
     })
     .on('end', () => {
       console.log(`Number of students: ${students.length}`);
