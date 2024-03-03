@@ -1,5 +1,5 @@
-import { promises as fs } from 'fs';
-import { parse } from 'csv-parse';
+const fs = require('fs').promises;
+const { parse } = require('csv-parse');
 
 async function countStudents(path) {
   let data;
