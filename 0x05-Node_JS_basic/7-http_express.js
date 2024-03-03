@@ -47,6 +47,7 @@ app.get('/', (request, response) => {
   response.status(200).send('Hello Holberton School!');
 });
 
+
 app.get('/students', async (request, response) => {
   try {
     const students = await countStudents(process.argv[2]);
