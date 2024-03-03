@@ -19,7 +19,6 @@
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "chai": "^4.2.0",
-        "csv-parse": "^5.5.5",
         "eslint": "^6.4.0",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-plugin-import": "^2.18.2",
