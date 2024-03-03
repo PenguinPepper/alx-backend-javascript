@@ -12,7 +12,9 @@ function countStudents(path) {
   const students = [];
   const fields = {};
 
-  parse(data, { delimter: ',', columns: true })
+  parse(data, {
+    delimter: ',', columns: true, relax_column_count: true, skip_empty_lines: true,
+  })
     .on('data', (row) => {
       students.push(row);
       if (!fields[row.field]) {

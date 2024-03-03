@@ -1,6 +1,9 @@
-const express = require('express');
 const fs = require('fs').promises;
 const { parse } = require('csv-parse');
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 1245;
 
 async function countStudents(path) {
   let data;
@@ -39,26 +42,32 @@ async function countStudents(path) {
   });
 }
 
-const app = express();
-const port = 1245;
-
-app.get('/', (request, response) => {
-  response.set('Content-Type', 'text/plain');
-  response.status(200).send('Hello Holberton School!');
-});
-
-
-app.get('/students', async (request, response) => {
-  try {
-    const students = await countStudents(process.argv[2]);
-    response.set('Content-Type', 'text/plain');
-    response.status(200).send(`This is the list of our students\n${students}`);
-  } catch (error) {
-    response.set('Content-Type', 'text/plain');
-    response.status(503).send('Únable to open database');
+const app = http.createServer(async (request, response) => {
+  response.setHeader('Content-Type', 'text/plain');
+  switch (request.url) {
+    case '/':
+      response.statusCode = 200;
+      response.end('Hello Holberton School!');
+      break;
+    case '/students':
+      try {
+        const students = await countStudents(process.argv[2]);
+        response.statusCode = 200;
+        response.end(`This is the list of our students\n${students}`);
+      } catch (error) {
+        console.log(error);
+        response.statusCode = 503;
+        response.end('Cannot load the database');
+      }
+      break;
+    default:
+      response.statusCode = 200;
+      response.end('Hello Holberton School!');
   }
 });
 
-app.listen(port, () => {
-  console.log(`Serve running on port: ${port}`);
+app.listen(port, hostname, () => {
+  console.log(`Server running at ${hostname} on port: ${port}`);
 });
+
+module.exports = app;
