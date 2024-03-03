@@ -13,7 +13,7 @@ function countStudents(path) {
   const fields = {};
 
   parse(data, {
-    delimter: ',', columns: true, relax_column_count: true, skip_empty_lines: true,
+    delimiter: ',', columns: true, relax_column_count: true, skip_empty_lines: true,
   })
     .on('data', (row) => {
       students.push(row);
