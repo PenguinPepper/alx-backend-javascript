@@ -1,5 +1,5 @@
-const fs = require('fs').promises;
-const { parse } = require('csv-parse');
+import { promises as fs } from 'fs';
+import { parse } from 'csv-parse';
 
 async function countStudents(path) {
   let data;
@@ -38,4 +38,4 @@ async function countStudents(path) {
   });
 }
 
-module.exports = countStudents;
+export default countStudents;

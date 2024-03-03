@@ -1,5 +1,5 @@
 const express = require('express');
-const countStudents = require('./3-read_file_async');
+const countStudents = require('./3-read_file_async').default;
 
 // should be assigned to the variable app and this one must be exporte
 // HTTP server should listen on port 1245
@@ -23,12 +23,12 @@ const app = express();
 const port = 1245;
 
 app.get('/', (request, response) => {
-  response.send('Hello Holberton School!');
+    response.send('Hello Holberton School!');
 });
 
 app.get('/students', (request, response) => {
-  const students = countStudents(process.argv[2]);
-  return response.send(`This is the list of our students\n ${students}`);
+    const students = countStudents(process.argv[2]);
+    return response.send(`This is the list of our students\n ${students}`);
 });
 
 app.listen(port);
