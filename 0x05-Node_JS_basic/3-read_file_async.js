@@ -10,23 +10,24 @@ async function parse(filePath) {
   });
 
   const lines = [];
-    return new Promise((resolve, reject) => {
-      rl.on('line', (line) => {
-        if (line.trim() !== '') {
-          lines.push(line.split(',').map((value) => value.trim()));
-        }
-      });
-
-      rl.on('close', () => {
-        const [header, ...rows] = lines;
-        const result = rows.map((row) => header.reduce((obj, key, i) => Object.assign({}, obj, { [key]: row[i] }), {}));
-        resolve(result);
-      });
-
-      rl.on('error', (error) => {
-        reject(error);
-      });
+  return new Promise((resolve, reject) => {
+    rl.on('line', (line) => {
+      if (line.trim() !== '') {
+        lines.push(line.split(',').map((value) => value.trim()));
+      }
     });
+
+    rl.on('close', () => {
+      const [header, ...rows] = lines;
+      const result = rows.map((row) => header.reduce((obj, key, i) => ({ ...obj, [key]: row[i] }), {}));
+      resolve(result);
+    });
+
+    rl.on('error', (error) => {
+      throw new Error('Cannot load the database');
+      reject(error);
+    });
+  });
 }
 
 async function countStudents(path) {
