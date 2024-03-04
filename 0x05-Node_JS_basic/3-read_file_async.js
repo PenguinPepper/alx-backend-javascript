@@ -10,15 +10,23 @@ async function parse(filePath) {
   });
 
   const lines = [];
+    return new Promise((resolve, reject) => {
+      rl.on('line', (line) => {
+        if (line.trim() !== '') {
+          lines.push(line.split(',').map((value) => value.trim()));
+        }
+      });
 
-  for await (const line of rl) {
-    if (line.trim() !== '') {
-      lines.push(line.split(',').map((value) => value.trim()));
-    }
-  }
+      rl.on('close', () => {
+        const [header, ...rows] = lines;
+        const result = rows.map((row) => header.reduce((obj, key, i) => Object.assign({}, obj, { [key]: row[i] }), {}));
+        resolve(result);
+      });
 
-  const [header, ...rows] = lines;
-  return rows.map((row) => header.reduce((obj, key, i) => ({ ...obj, [key]: row[i] }), {}));
+      rl.on('error', (error) => {
+        reject(error);
+      });
+    });
 }
 
 async function countStudents(path) {
