@@ -95,3 +95,5 @@ app.get('/students', async (request, response) => {
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
+
+module.exports = app;
