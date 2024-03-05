@@ -80,18 +80,15 @@ const app = express();
 const port = 1245;
 
 app.get('/', (request, response) => {
-  response.set('Content-Type', 'text/plain');
-  response.status(200).send('Hello Holberton School!');
+  response.status(200).type('text').send('Hello Holberton School!');
 });
 
 app.get('/students', async (request, response) => {
   try {
     const students = await countStudents(process.argv[2]);
-    response.set('Content-Type', 'text/plain');
-    response.status(200).send(`This is the list of our students\n${students}`);
+    response.status(200).type('text').send(`This is the list of our students\n${students}`);
   } catch (error) {
-    response.set('Content-Type', 'text/plain');
-    response.status(503).send(`This is the list of our students\n${error.message}`);
+    response.status(503).type('text').send(`This is the list of our students\n${error.message}`);
   }
 });
 
