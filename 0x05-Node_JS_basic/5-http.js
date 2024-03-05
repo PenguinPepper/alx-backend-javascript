@@ -4,10 +4,9 @@ const readline = require('readline');
 const http = require('http');
 
 async function parse(filePath) {
-
   try {
     await readPromise.access(filePath, fs.constants.F_OK);
-  }  catch (error) {
+  } catch (error) {
     throw new Error('Cannot load database');
   }
 
@@ -19,31 +18,31 @@ async function parse(filePath) {
   });
 
   const lines = [];
-    return new Promise((resolve, reject) => {
-      rl.on('line', (line) => {
-        if (line.trim() !== '') {
-          lines.push(line.split(',').map((value) => value.trim()));
-        }
-      });
-
-      rl.on('close', () => {
-        const [header, ...rows] = lines;
-        const result = [];
-        rows.forEach((row) => {
-          const obj = {};
-          for (let i = 0; i < header.length; i++) {
-            obj[header[i]] = row[i];
-          }
-          result.push(obj);
-        });
-        resolve(result);
-      });
-
-      rl.on('error', (error) => {
-        reject(error);
-      });
+  return new Promise((resolve, reject) => {
+    rl.on('line', (line) => {
+      if (line.trim() !== '') {
+        lines.push(line.split(',').map((value) => value.trim()));
+      }
     });
-  }
+
+    rl.on('close', () => {
+      const [header, ...rows] = lines;
+      const result = [];
+      rows.forEach((row) => {
+        const obj = {};
+        for (let i = 0; i < header.length; i += 1) {
+          obj[header[i]] = row[i];
+        }
+        result.push(obj);
+      });
+      resolve(result);
+    });
+
+    rl.on('error', (error) => {
+      reject(error);
+    });
+  });
+}
 
 async function countStudents(path) {
   let students;
@@ -67,7 +66,7 @@ async function countStudents(path) {
       let output = `Number of students: ${students.length}`;
       for (const field in fields) {
         if (field) {
-          output += `\n Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`;
+          output += `\nNumber of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`;
         }
       }
       resolve(output);
@@ -76,7 +75,6 @@ async function countStudents(path) {
     }
   });
 }
-
 
 const hostname = '127.0.0.1';
 const port = 1245;
