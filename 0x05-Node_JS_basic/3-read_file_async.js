@@ -1,7 +1,14 @@
+const readPromise = require('fs').promises;
 const fs = require('fs');
 const readline = require('readline');
 
 async function parse(filePath) {
+  try {
+    await readPromise.access(filePath, fs.constants.F_OK);
+  } catch (error) {
+    throw new Error('Cannot load database');
+  }
+
   const fileStream = fs.createReadStream(filePath);
 
   const rl = readline.createInterface({
@@ -19,12 +26,18 @@ async function parse(filePath) {
 
     rl.on('close', () => {
       const [header, ...rows] = lines;
-      const result = rows.map((row) => header.reduce((obj, key, i) => ({ ...obj, [key]: row[i] }), {}));
+      const result = [];
+      rows.forEach((row) => {
+        const obj = {};
+        for (let i = 0; i < header.length; i += 1) {
+          obj[header[i]] = row[i];
+        }
+        result.push(obj);
+      });
       resolve(result);
     });
 
     rl.on('error', (error) => {
-      throw new Error('Cannot load the database');
       reject(error);
     });
   });
