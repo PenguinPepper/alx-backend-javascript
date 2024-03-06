@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-const fs = require('fs');
-const readline = require('readline');
-
-async function parse(filePath) {
-  const fileStream = fs.createReadStream(filePath);
-
-  const rl = readline.createInterface({
-    input: fileStream,
-    crlfDelay: Infinity,
-  });
-
-  const lines = [];
-
-  for await (const line of rl) {
-    if (line.trim() !== '') {
-      lines.push(line.split(',').map((value) => value.trim()));
-    }
-  }
-
-  const [header, ...rows] = lines;
-  return rows.map((row) => header.reduce((obj, key, i) => ({ ...obj, [key]: row[i] }), {}));
-}
-||||||| d46fd81f
-const fs = require('fs').promises;
-const { parse } = require('csv-parse');
-=======
 const readPromise = require('fs').promises;
 const fs = require('fs');
 const readline = require('readline');
@@ -69,24 +42,12 @@ async function parse(filePath) {
     });
   });
 }
->>>>>>> df4457d2f5c492958dd2c1cc68faf531800c5ac1
 
 async function countStudents(path) {
-<<<<<<< HEAD
 
-||||||| d46fd81f
-  let data;
-=======
   let students;
->>>>>>> df4457d2f5c492958dd2c1cc68faf531800c5ac1
   try {
-<<<<<<< HEAD
-    const students = await parse(path);
-||||||| d46fd81f
-    data = await fs.readFile(path);
-=======
     students = await parse(path);
->>>>>>> df4457d2f5c492958dd2c1cc68faf531800c5ac1
   } catch (error) {
     throw new Error('Cannot load the database');
   }
