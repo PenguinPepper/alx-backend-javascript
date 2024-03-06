@@ -1,3 +1,5 @@
+
+const readPromise = require('fs').promises;
 const fs = require('fs');
 const readline = require('readline');
 const express = require('express');
@@ -75,7 +77,6 @@ async function countStudents(path) {
     }
   });
 }
-
 const app = express();
 const port = 1245;
 
@@ -96,3 +97,4 @@ app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
 
+module.exports = app;
